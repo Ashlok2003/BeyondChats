@@ -97,7 +97,7 @@ sequenceDiagram
     User->>Backend: Run updater
     Backend->>Database: Fetch articles
     Backend->>Google: Search article title
-    Google-->>Backend: Top 2 results
+    Google-->>Backend: Top 5 results
     Backend->>Scraper: Extract content
     Backend->>LLM: Rewrite article
     LLM-->>Backend: Enhanced content
