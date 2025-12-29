@@ -124,8 +124,8 @@ sequenceDiagram
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
-   cd assessment
+   git clone https://github.com/Ashlok2003/BeyondChats.git
+   cd BeyondChats
    ```
 
 2. **Set up environment variables**
@@ -229,39 +229,6 @@ make scrape        # Run article scraper
 make update        # Run AI updater
 make db-push       # Push database schema
 make db-studio     # Open Prisma Studio
-```
-
-## 🗂️ Project Structure
-
-```
-assessment/
-├── src/                      # Backend source code
-│   ├── config/              # Configuration files
-│   ├── controllers/         # Route controllers
-│   ├── middleware/          # Express middleware
-│   ├── routes/              # API routes
-│   ├── services/            # Business logic
-│   │   ├── scraper.ts       # BeyondChats scraper
-│   │   ├── googleSearch.ts  # Google Search scraper
-│   │   ├── contentExtractor.ts
-│   │   └── llmService.ts    # OpenAI integration
-│   ├── scripts/             # Utility scripts
-│   ├── utils/               # Helper functions
-│   └── server.ts            # Main server file
-├── client/                  # React frontend
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API services
-│   │   └── App.tsx          # Main app component
-│   ├── Dockerfile
-│   └── nginx.conf
-├── prisma/
-│   └── schema.prisma        # Database schema
-├── Dockerfile               # Backend Dockerfile
-├── docker-compose.yml       # Docker Compose config
-├── Makefile                 # Build commands
-└── README.md               # This file
 ```
 
 ## 🎨 UI Features
@@ -369,12 +336,6 @@ MIT License - feel free to use this code for learning purposes.
 
 Created as part of the BeyondChats Full Stack Web Developer Internship assignment.
 
-## 🙏 Acknowledgments
-
-- BeyondChats for the opportunity
-- OpenAI for GPT-4 API
-- The open-source community for amazing tools
-
 ---
 
-**Note**: Make sure to add your OpenAI API key to the `.env` file before running the AI updater (Phase 2).
+**Note**: Make sure to add your OpenAI or Gemini API key to the `.env` file before running the AI updater (Phase 2).
