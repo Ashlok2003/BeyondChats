@@ -1,0 +1,61 @@
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: beyondchats-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: beyondchats
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - beyondchats-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: beyondchats-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@database:5432/beyondchats?schema=public
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      FRONTEND_URL: http://localhost
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - beyondchats-network
+    command: sh -c "npx prisma db push && node dist/server.js"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: beyondchats-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - beyondchats-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  beyondchats-network:
+    driver: bridge
