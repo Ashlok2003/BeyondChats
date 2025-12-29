@@ -48,12 +48,22 @@ export async function scrapeBeyondChatsArticles(): Promise<ScrapedArticle[]> {
         // Try different selectors for article links
         $('a[href*="/blog"], a[href*="/article"], article a, .blog-post a, .post a').each((_, element) => {
             const href = $(element).attr('href');
-            if (href && !articleLinks.includes(href)) {
+            if (href) {
                 // Convert relative URLs to absolute
                 const absoluteUrl = href.startsWith('http')
                     ? href
                     : new URL(href, blogUrl).href;
-                articleLinks.push(absoluteUrl);
+
+                // Remove trailing slash for consistent comparison
+                const cleanUrl = absoluteUrl.replace(/\/$/, '');
+                const cleanBlogUrl = blogUrl.replace(/\/$/, '');
+
+                // Exclude the main blog page, pagination, and duplicates
+                if (cleanUrl !== cleanBlogUrl &&
+                    !cleanUrl.includes('/page/') &&
+                    !articleLinks.includes(absoluteUrl)) {
+                    articleLinks.push(absoluteUrl);
+                }
             }
         });
 
@@ -77,7 +87,7 @@ export async function scrapeBeyondChatsArticles(): Promise<ScrapedArticle[]> {
             }
         }
 
-        logger.info(`✅ Successfully scraped ${articles.length} articles`);
+        logger.info(`Successfully scraped ${articles.length} articles`);
         return articles;
 
     } catch (error) {

@@ -112,7 +112,12 @@ const ArticleDetail: React.FC = () => {
             container.style.color = '#000000';
             document.body.appendChild(container);
 
-            const children = Array.from(content.children);
+            let children = Array.from(content.children);
+
+            // Unwrap if there's a single wrapper div (due to styling)
+            if (children.length === 1 && children[0].tagName === 'DIV' && activeTab !== 'diff') {
+                children = Array.from(children[0].children);
+            }
 
             for (const child of children) {
                 const clone = child.cloneNode(true) as HTMLElement;
