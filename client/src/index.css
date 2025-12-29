@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-primary-200 font-sans antialiased;
+    background-image:
+      radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(255, 255, 255, 0.03) 0px, transparent 50%);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface/80 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl;
+  }
+
+  .gradient-text {
+    @apply text-white font-bold tracking-tight;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-white text-black font-bold rounded-lg
+           hover:bg-gray-200 transition-all duration-300 shadow-lg shadow-white/10
+           hover:shadow-xl hover:shadow-white/20 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-transparent text-white font-medium rounded-lg border border-white/20
+           hover:bg-white/10 hover:border-white/40 transition-all duration-300
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-600;
+}
+
+/* Loading animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
